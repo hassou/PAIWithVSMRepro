@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PAIWithVSMRepro.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+        <Style TargetType="StackLayout" x:Key="VSM">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="CurrentItem">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity" Value="1" />
+                                    <Setter Property="Scale" Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PreviousItem">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity" Value="0.5" />
+                                    <Setter Property="Scale" Value="0.8" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="NextItem">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity" Value="0.5" />
+                                    <Setter Property="Scale" Value="0.8" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="DefaultItem">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity" Value="0.5" />
+                                    <Setter Property="Scale" Value="0.8" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+                <Setter Property="BackgroundColor" Value="White"/>
+            </Style>
+        <x:Array Type="{x:Type x:String}" x:Key="DataTemplate">
+            <x:String>1</x:String>
+            <x:String>2</x:String>
+            <x:String>3</x:String>
+            <x:String>4</x:String>
+            <x:String>5</x:String>
+            <x:String>6</x:String>
+            <x:String>7</x:String>
+            <x:String>8</x:String>
+            <x:String>9</x:String>
+        </x:Array>
+        <Style TargetType="Label" x:Key="label">
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+        </Style>
+    </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Padding="20">
+        <Label Text="Carousel View without Peek Area Insets"/>
+        <IndicatorView x:Name="indicatorView" IndicatorColor="Gray" Margin="0,0,0,20" SelectedIndicatorColor="Yellow" HorizontalOptions="Center"/>
+        <CarouselView ItemsSource="{StaticResource DataTemplate}" IndicatorView="indicatorView" HeightRequest="200" Loop="False">
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Style="{StaticResource VSM}">
+                        <Label Text="{Binding .}" Style="{StaticResource label}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+
+        <Label Text="Carousel View WITH Peek Area Insets"/>
+        <IndicatorView x:Name="indicatorView2" IndicatorColor="Gray" Margin="0,0,0,20" SelectedIndicatorColor="Yellow" HorizontalOptions="Center"/>
+        <CarouselView ItemsSource="{StaticResource DataTemplate}" PeekAreaInsets="90" IndicatorView="indicatorView2" HeightRequest="200" Loop="False">
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Style="{StaticResource VSM}">
+                        <Label Text="{Binding .}" Style="{StaticResource label}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+    </StackLayout>
+</ContentPage>
